@@ -46,7 +46,7 @@ CREATE TABLE poems (
 CREATE TABLE favorites (
 	id INT NOT NULL AUTO_INCREMENT,
 	user_id INT NOT NULL,
-	favorites_id INT NOT NULL,
+	favorite_id INT NOT NULL,
 	PRIMARY KEY (id)
 );
 
