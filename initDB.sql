@@ -22,7 +22,8 @@ CREATE TABLE users_roles (
 CREATE TABLE roles (
 	id INT NOT NULL AUTO_INCREMENT,
 	value varchar(25) NOT NULL,
-	PRIMARY KEY (id)
+	PRIMARY KEY (id),
+	UNIQUE(value)
 );
 
 CREATE TABLE reviews (

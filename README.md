@@ -13,13 +13,13 @@ Role
 
 METHOD   | URI                  | OPTION		  | RIGHTS
 ---------|----------------------|-------------------------|--------
-GET      | /users/[:id]/poems   | get all user poems      | nr/au	
-POST     | /users/my/favorite   | add favorite user       | au
-GET      | /users/my/favorite   | get all favorites users | au
-DELETE   | /users/my/favorite   | delete favorite user    | au
-GET      | /users/my/poems      | get all my poems        | au
+GET      | /users/[:id]/poems   | get all poems by user id| nr/au	
+POST     | /users/favorite      | add favorite user       | au
+GET      | /users/favorite      | get all favorites users | au
+DELETE   | /users/favorite/[:id]| delete favorite user    | au
+GET      | /users/poems         | get all my poems        | au
 GET      | /users/[:id]/profile | get user profile        | nr/au
-GET      | /users/my/profile    | get current profile     | au
+GET      | /users/profile       | get current profile     | au
 GET      | /users               | get all users info      | ad
 GET      | /users/[:id]         | get user info           | ad
 GET      | /users/[:id]/role    | get user role           | ad
