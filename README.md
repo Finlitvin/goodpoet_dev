@@ -23,7 +23,6 @@ GET      | /users/profile       | get current profile     | au
 GET      | /users               | get all users info      | ad
 GET      | /users/[:id]         | get user info           | ad
 GET      | /users/[:id]/role    | get user role           | ad
-DELETE   | /users/[:id]         | delete user profile     | ad
 GET      | /poems               | get all poems(tittle)   | nr/au
 GET      | /poems/[:id]         | get one poems           | nr/au
 GET      | /poems/[:id]/review  | get poem review         | nr/au

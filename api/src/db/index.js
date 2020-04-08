@@ -1,5 +1,5 @@
 const sequelize = require('./sequelize');
-//require('../models');
+require('../models');
 
 class DataBase {
     async connect() {
