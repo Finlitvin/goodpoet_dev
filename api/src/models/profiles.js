@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../db/sequelize');
 
-const Profiles = (module.exports = sequelize.define('profile', {
+const Profile = (module.exports = sequelize.define('profile', {
     userId: {
         type: Sequelize.INTEGER,
         field: 'user_id',

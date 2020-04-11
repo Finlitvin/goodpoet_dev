@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../db/sequelize');
 
-const Favorites = (module.exports = sequelize.define('favorite', {
+const Favorite = (module.exports = sequelize.define('favorite', {
     userId: {
         type: Sequelize.INTEGER,
         field: 'user_id',

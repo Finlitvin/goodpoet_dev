@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../db/sequelize');
 
-const Poems = (module.exports = sequelize.define('poem', {
+const Poem = (module.exports = sequelize.define('poem', {
     userId: {
         type: Sequelize.INTEGER,
         field: 'user_id',
@@ -12,11 +12,12 @@ const Poems = (module.exports = sequelize.define('poem', {
         allowNull: false
     },
     content: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false
     },
-    date: {
+    pubDate: {
         type: Sequelize.DATE,
+        field: 'pub_date',
         allowNull: false
     }
 }));

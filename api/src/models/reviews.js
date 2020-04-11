@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../db/sequelize');
 
-const Reviews = (module.exports = sequelize.define('review', {
+const Review = (module.exports = sequelize.define('review', {
     userId: {
         type: Sequelize.INTEGER,
         field: 'user_id',
