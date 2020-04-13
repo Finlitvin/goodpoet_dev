@@ -1,0 +1,9 @@
+{
+    "secret": "keyboard cat",
+    "resave": true,
+    "saveUninitialized": true,
+    "cookie": { 
+        "secure": false, 
+        "maxAge": 3600000 
+    }
+}
