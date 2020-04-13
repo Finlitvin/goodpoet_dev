@@ -4,7 +4,9 @@ require('../models');
 class DataBase {
     async connect() {
         await sequelize.sync();
-        console.log('DATABASE [+]')
+        console.log('DATABASE [+]');
+
+        
     }
 }
 

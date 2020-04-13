@@ -1,6 +1,10 @@
 const favoriteModel = require('../models/favorites');
 
 class FavoritesRepository {
+    getFavorite(id) {
+        return favoriteModel.findByPk(id);
+    }
+
     getAllFavorites() {
         return favoriteModel.findAll();
     }
