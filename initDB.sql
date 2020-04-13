@@ -39,7 +39,7 @@ CREATE TABLE poems (
 	user_id INT NOT NULL,
 	tittle varchar(25) NOT NULL,
 	content TEXT NOT NULL,
-	date DATE NOT NULL,
+	pub_date DATE NOT NULL,
 	PRIMARY KEY (id)
 );
 
