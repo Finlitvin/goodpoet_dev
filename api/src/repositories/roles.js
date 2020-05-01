@@ -10,7 +10,7 @@ class RolesRepository {
     }
 
     getRoleByValue(value) {
-        return findOne({ where: { value: value } });
+        return roleModel.findOne({ where: { value: value } });
     }
     
     addRole(value) {
