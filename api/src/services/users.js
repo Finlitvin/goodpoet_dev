@@ -44,8 +44,8 @@ class UsersService {
 
         const user = await userRepository.addUser(value);
 
-        const role = await roleService.getRoleByValue(process.env.USER);
-
+        const role = await roleService.getRoleByValue(process.env.USER_AUTHOR);
+        
         if(!role) {
             throw new NotFoundError(`Role ${role} not found`);
         }
