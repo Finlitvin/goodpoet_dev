@@ -2,6 +2,7 @@ const userRepository = require('../repositories/users');
 const ConflictError = require('../classes/errors/ConflictError');
 const NotFoundError = require('../classes/errors/NotFoundError');
 const roleService = require('./roles');
+const profileRepository = require('../repositories/profiles');
 require('dotenv').config();
 
 class UsersService {
@@ -42,7 +43,20 @@ class UsersService {
             throw new ConflictError('Email already exist');
         }
 
-        const user = await userRepository.addUser(value);
+        const userValue = {
+            email: value.email,
+            password: value.password
+        };
+
+        const user = await userRepository.addUser(userValue);
+        
+        const profile = {
+            userId: user.id,
+            firstName: value.firstName,
+            lastName: value.lastName,
+        };
+
+        await profileRepository.addProfile(profile);
 
         const role = await roleService.getRoleByValue(process.env.USER_AUTHOR);
         
@@ -55,6 +69,16 @@ class UsersService {
         });
 
         return user;
+    }
+
+    async getProfileByUserId(id){
+        const profiles = await profileRepository.getProfileByUserId(id);
+
+        if(!profiles){
+            throw new NotFoundError(`User with ${id} not found`);
+        }
+
+        return profiles;
     }
 }
 

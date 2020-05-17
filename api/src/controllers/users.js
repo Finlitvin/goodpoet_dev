@@ -10,6 +10,17 @@ class UserController {
 
         res.status(httpStatus.CREATED).json(resMessage.OK(httpStatus.CREATED, 'User created'));
     }
+
+    async getProfileByUserId(req, res, next) {
+        const id = req.params.id;
+        
+        const profiles = await userService.getProfileByUserId(id);
+
+        res
+            .status(httpStatus.OK)
+            .json(resMessage.OK(httpStatus.OK, 'Get profile', profiles));
+            
+    }
 }
 
 module.exports = new UserController();

@@ -14,7 +14,9 @@ class DataBase {
             try {
                 const user = await userService.addUser({
                     email: process.env.ADMIN_LOGIN,
-                    password: process.env.ADMIN_PASSWORD
+                    password: process.env.ADMIN_PASSWORD,
+                    firstName: process.env.ADMIN_FIRST_NAME,
+                    lastName: process.env.ADMIN_LAST_NAME
                 });
             } catch (error) {
                 console.log(error);
