@@ -80,6 +80,8 @@ class UsersService {
 
         return profiles;
     }
+
+    
 }
 
 module.exports = new UsersService();

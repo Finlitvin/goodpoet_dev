@@ -13,13 +13,23 @@ class UserController {
 
     async getProfileByUserId(req, res, next) {
         const id = req.params.id;
-        
+
         const profiles = await userService.getProfileByUserId(id);
 
         res
             .status(httpStatus.OK)
             .json(resMessage.OK(httpStatus.OK, 'Get profile', profiles));
             
+    }
+
+    async getMyProfile(req, res, next) {
+        const id = req.user.id;
+        
+        const profiles = await userService.getProfileByUserId(id);
+
+        res
+            .status(httpStatus.OK)
+            .json(resMessage.OK(httpStatus.OK, 'Get profile', profiles)); 
     }
 }
 
