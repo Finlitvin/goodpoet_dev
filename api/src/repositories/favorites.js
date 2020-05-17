@@ -5,8 +5,8 @@ class FavoritesRepository {
         return favoriteModel.findByPk(id);
     }
 
-    getAllFavorites() {
-        return favoriteModel.findAll();
+    getAllFavorites(userId) {
+        return favoriteModel.findAll({ where: {userId: userId} });
     }
 
     addFavorite(favorite) {

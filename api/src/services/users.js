@@ -3,6 +3,7 @@ const ConflictError = require('../classes/errors/ConflictError');
 const NotFoundError = require('../classes/errors/NotFoundError');
 const roleService = require('./roles');
 const profileRepository = require('../repositories/profiles');
+const favoritesRepository = require('../repositories/favorites');
 require('dotenv').config();
 
 class UsersService {
@@ -72,16 +73,42 @@ class UsersService {
     }
 
     async getProfileByUserId(id){
+        const user = await this.getUser(id);
+
+        if(!user) {
+            throw new NotFoundError(`User with ${id} not found`); 
+        }
+
         const profiles = await profileRepository.getProfileByUserId(id);
 
         if(!profiles){
-            throw new NotFoundError(`User with ${id} not found`);
+            throw new NotFoundError('Profile not found');
         }
 
         return profiles;
     }
 
-    
+    async getAllFavorites(userId) {
+       const favorites = await favoritesRepository.getAllFavorites(userId);
+
+       if(!favorites) {
+            throw new NotFoundError('All Favorites err');
+       }
+
+       return favorites;
+
+    }
+
+    async addFavorites(userId, favoriteId) {
+        const favorite = {
+            userId: userId,
+            favoriteId: favoriteId.favoriteId
+        };
+        
+        const fav = await favoritesRepository.addFavorite(favorite);
+
+        return fav;
+    }
 }
 
 module.exports = new UsersService();

@@ -11,5 +11,7 @@ router.use(validation({params: paramsSchema.id}));
 router.post('/add', validation({ body: userSchema.add }) ,tryCatch(userController.addUser));
 router.get('/:id/profile', tryCatch(userController.getProfileByUserId));
 router.get('/profile', tryCatch(userController.getMyProfile));
+router.get('/favorite', tryCatch(userController.getAllFavorites));
+router.post('/favorite', tryCatch(userController.addFavorite));
 
 module.exports = router;
