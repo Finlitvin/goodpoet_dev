@@ -1,8 +1,13 @@
 const favoriteModel = require('../models/favorites');
 
 class FavoritesRepository {
-    getFavorite(id) {
-        return favoriteModel.findByPk(id);
+    getFavorite(userId, favoriteId) {
+        return favoriteModel.findAll({
+            where: {
+                userId: userId,
+                favoriteId: favoriteId
+            }
+        });
     }
 
     getAllFavorites(userId) {
@@ -13,8 +18,13 @@ class FavoritesRepository {
         return favoriteModel.create(favorite);
     }
 
-    deleteFavorite(id) {
-        return favoriteModel.destroy({ where: { id: id } });
+    deleteFavorite(favoriteId, userId) {
+        return favoriteModel.destroy({ 
+            where: { 
+                userId: userId,
+                favoriteId: favoriteId 
+            } 
+        });
     }
 }
 

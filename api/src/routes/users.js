@@ -13,5 +13,6 @@ router.get('/:id/profile', tryCatch(userController.getProfileByUserId));
 router.get('/profile', tryCatch(userController.getMyProfile));
 router.get('/favorite', tryCatch(userController.getAllFavorites));
 router.post('/favorite', tryCatch(userController.addFavorite));
+router.delete('/favorite/:id', tryCatch(userController.deleteFavorite));
 
 module.exports = router;

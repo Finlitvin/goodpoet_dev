@@ -100,14 +100,31 @@ class UsersService {
     }
 
     async addFavorites(userId, favoriteId) {
+        const isFav = await favoritesRepository.getFavorite(userId, favoriteId.favoriteId);
+
+        if(isFav.length){
+            throw new ConflictError('this favorite was added');
+        }
+
         const favorite = {
             userId: userId,
             favoriteId: favoriteId.favoriteId
         };
-        
+
         const fav = await favoritesRepository.addFavorite(favorite);
 
         return fav;
+    }
+
+    async deleteFavorite(favoriteId, userId) {
+        const isFav = await favoritesRepository.getFavorite(userId, favoriteId);
+
+        if(!isFav.length){
+            throw new ConflictError('this favorite was deleted');
+        }
+
+        const favor = await favoritesRepository.deleteFavorite(favoriteId, userId);
+        return favor;
     }
 }
 

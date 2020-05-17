@@ -44,6 +44,7 @@ class UserController {
 
     async addFavorite(req, res, next) {
         const userId = req.user.id;
+        
         const favoriteId = req.body;
         
         await userService.addFavorites(userId, favoriteId);
@@ -51,6 +52,17 @@ class UserController {
         res
             .status(httpStatus.CREATED)
             .json(resMessage.OK(httpStatus.CREATED, 'Favorite add'));
+    }
+
+    async deleteFavorite(req, res, next) {
+        const favoriteId = req.params.id;
+        const userId = req.user.id;
+
+        await userService.deleteFavorite(favoriteId, userId);
+
+        res
+            .status(httpStatus.OK)
+            .json(resMessage.OK(httpStatus.OK, 'Favorite delete'));
     }
 }
 
