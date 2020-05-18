@@ -1,6 +1,7 @@
 const httpStatus = require('http-status-codes');
 const resMessage = require('../helpers/resMessage');
 const userService = require('../services/users');
+const NotFoundError = require('../classes/errors/NotFoundError');
 
 class UserController {
     async addUser(req, res, next) {
@@ -63,6 +64,34 @@ class UserController {
         res
             .status(httpStatus.OK)
             .json(resMessage.OK(httpStatus.OK, 'Favorite delete'));
+    }
+
+    async getUserById(req, res, next) {
+        const id = req.params.id;
+
+        const user = await userService.getUser(id);
+
+        if(!user) {
+            next(new NotFoundError(`User with id ${id} not found`));
+            return;
+        }
+
+        res
+            .status(httpStatus.OK)
+            .json(resMessage.OK(httpStatus.OK, 'Get user', user));
+    }
+
+    async getAllUsers(req, res, next) {
+        const users = await userService.getAllUsers();
+
+        if(!users || !users.length) {
+            next(new NotFoundError('Empty result body'));
+            return;
+        }
+
+        res
+            .status(httpStatus.OK)
+            .json(resMessage.OK(httpStatus.OK, 'Get users', users));
     }
 }
 
