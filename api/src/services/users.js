@@ -4,6 +4,7 @@ const NotFoundError = require('../classes/errors/NotFoundError');
 const roleService = require('./roles');
 const profileRepository = require('../repositories/profiles');
 const favoritesRepository = require('../repositories/favorites');
+const poemRepository = require('../repositories/poems');
 require('dotenv').config();
 
 class UsersService {
@@ -125,6 +126,57 @@ class UsersService {
 
         const favor = await favoritesRepository.deleteFavorite(favoriteId, userId);
         return favor;
+    }
+
+    async addPoem(poem) {
+        const poems = await poemRepository.addPoem(poem);
+        return poems;
+    }
+
+    getMyPoems(userId){
+        return poemRepository.getPoemByUserId(userId);
+    }
+
+    async getMyPoemsById(userId, id){
+        const poem = await poemRepository.getPoem(id);
+
+        if(!poem){
+            throw new NotFoundError('sorry');
+        }
+
+        if(poem.userId != userId){
+            throw new NotFoundError('sorry');
+        }
+
+        return poem;
+    }
+
+    async deletePoem(poemId, userId){
+        const poem = await poemRepository.getPoem(poemId);
+
+        if(!poem) {
+            throw new NotFoundError('sorry del');
+        }
+
+        if(userId != poem.userId){
+            throw new NotFoundError('sorry');
+        }
+
+        return await poemRepository.deletePoem(poemId);
+    }
+
+    async updatePoem(poemId, newPoemData, userId){
+        const poem = await poemRepository.getPoem(poemId);
+
+        if(!poem) {
+            throw new NotFoundError('sorry');
+        }
+
+        if(userId != poem.userId){
+            throw new NotFoundError('sorry');
+        }
+
+        return await poemRepository.updatePoem(poemId, newPoemData);
     }
 }
 

@@ -93,6 +93,87 @@ class UserController {
             .status(httpStatus.OK)
             .json(resMessage.OK(httpStatus.OK, 'Get users', users));
     }
+
+    async addPoem(req, res, next) {
+        const userId = req.user.id;
+        console.log('1');
+        const poem = {
+            userId: userId,
+            tittle: req.body.tittle,
+            content: req.body.content,
+            pubDate: req.body.pubDate
+        };
+        console.log('2');
+        await userService.addPoem(poem);
+
+        res
+            .status(httpStatus.CREATED)
+            .json(resMessage.OK(httpStatus.CREATED, 'Poem created')); 
+    }
+
+    async getMyPoems(req, res, next) {
+        const userId = req.user.id;
+
+        const poems = await userService.getMyPoems(userId);
+
+        if(!poems || !poems.length) {
+            next(new NotFoundError('Sorry'));
+            return;
+        }
+
+        res
+            .status(httpStatus.OK)
+            .json(resMessage.OK(httpStatus.OK, 'Get poems', poems));
+    }
+
+    async getMyPoemById(req, res, next) {
+        const userId = req.user.id;
+        const id = req.params.id;
+
+        const poem = await userService.getMyPoemsById(userId, id)
+
+        res
+            .status(httpStatus.OK)
+            .json(resMessage.OK(httpStatus.OK, 'Get poem', poem)); 
+    }
+
+    async getPoemByUserId(req, res, next) {
+        const userId = req.params.id;
+
+        const poems = await userService.getMyPoems(userId);
+
+        if(!poems || !poems.length) {
+            next(new NotFoundError('Sorry'));
+            return;
+        }
+
+        res
+            .status(httpStatus.OK)
+            .json(resMessage.OK(httpStatus.OK, 'Get poems', poems));        
+    }
+
+    async deletePoem(req, res, next) {
+        const userId = req.user.id;
+        const poemId = req.params.id;
+
+        await userService.deletePoem(poemId, userId);
+
+        res
+            .status(httpStatus.OK)
+            .json(resMessage.OK(httpStatus.OK, 'Poem delete'));  
+    }
+
+    async updatePoem(req, res, next){
+        const userId = req.user.id;
+        const poemId = req.params.id;
+        const newPoemData = req.body;
+
+        await userService.updatePoem(poemId, newPoemData, userId);
+
+        res
+            .status(httpStatus.OK)
+            .json(resMessage.OK(httpStatus.OK, 'Poem update'));
+    }
 }
 
 module.exports = new UserController();
