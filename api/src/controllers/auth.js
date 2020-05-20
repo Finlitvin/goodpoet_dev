@@ -1,5 +1,6 @@
 const passport = require('passport');
 const httpStatus = require('http-status-codes');
+
 const resMessage = require('../helpers/resMessage');
 const UnauthorizedError = require('../classes/errors/UnauthorizedError');
 
@@ -18,7 +19,10 @@ class LoginController {
                 if (err) {
                     return next(err);
                 }
-                res.status(httpStatus.OK).json(resMessage.OK(httpStatus.OK, 'Success login'));
+
+                res
+                    .status(httpStatus.OK)
+                    .json(resMessage.OK(httpStatus.OK, 'Success login'));
             });
         })(req, res, next);
     }
@@ -26,7 +30,9 @@ class LoginController {
     logout(req, res, next) {
         req.logOut();
 
-        res.status(httpStatus.OK).json(resMessage.OK(httpStatus.OK, 'Success logout'));
+        res
+            .status(httpStatus.OK)
+            .json(resMessage.OK(httpStatus.OK, 'Success logout'));
     }
 };
 

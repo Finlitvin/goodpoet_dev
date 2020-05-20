@@ -12,26 +12,16 @@ class DataBase {
 
         if(!admin) {
             try {
-                const user = await userService.addUser({
+                const adminValue = {
                     email: process.env.ADMIN_LOGIN,
                     password: process.env.ADMIN_PASSWORD,
                     firstName: process.env.ADMIN_FIRST_NAME,
                     lastName: process.env.ADMIN_LAST_NAME
-                });
-            } catch (error) {
-                console.log(error);
-            }
-            
-            try {
-                admin = await userService.getUserByEmail(process.env.ADMIN_LOGIN);
-            } catch (error) {
-                console.log(error);
-            }
+                }
 
-            try {
-                await userService.addUserRole(admin.id, process.env.ADMIN);
+                const user = await userService.addUser(adminValue, process.env.ROLE_ADMIN);
             } catch (error) {
-               console.log(error); 
+                console.log(error);
             }
         }
     }

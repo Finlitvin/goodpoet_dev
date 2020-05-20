@@ -1,4 +1,5 @@
 const httpStatus = require('http-status-codes');
+
 const resMessage = require('../helpers/resMessage');
 const poemsService = require('../services/poems');
 
@@ -7,8 +8,8 @@ class PoemsController {
         const poems = await poemsService.getPoem();
 
         res
-        .status(httpStatus.OK)
-        .json(resMessage.OK(httpStatus.OK, 'Get poems', poems));
+            .status(httpStatus.OK)
+            .json(resMessage.OK(httpStatus.OK, 'Get all poems', poems));
     }
 
     async getPoemById(req, res, next) {
@@ -17,8 +18,8 @@ class PoemsController {
         const poem = await poemsService.getPoemById(poemId);
 
         res
-        .status(httpStatus.OK)
-        .json(resMessage.OK(httpStatus.OK, 'Get poem', poem));
+            .status(httpStatus.OK)
+            .json(resMessage.OK(httpStatus.OK, 'Get poem', poem));
     }
 }
 

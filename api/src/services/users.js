@@ -20,25 +20,7 @@ class UsersService {
         return userRepository.getAllUsers();
     }
 
-    async addUserRole(id, value) {
-        const user = await this.getUser(id);
-
-        if(!user) {
-            throw new NotFoundError('User not found');
-        }
-
-        const role = await roleService.getRoleByValue(value);
-
-        if(!role) {
-            throw new NotFoundError(`Role ${role} not found`);
-        }
-
-        await user.addRole(role, {
-            through: {userId: user.id, roleId: role.id}
-        });
-    }
-
-    async addUser(value) {
+    async addUser(value, valueRole) {
         const isUserExist = !!(await userRepository.getUserByEmail(value.email));
 
         if(isUserExist) {
@@ -60,12 +42,12 @@ class UsersService {
 
         await profileRepository.addProfile(profile);
 
-        const role = await roleService.getRoleByValue(process.env.USER_AUTHOR);
-        
+        const role = await roleService.getRoleByValue(valueRole);
+
         if(!role) {
             throw new NotFoundError(`Role ${role} not found`);
         }
-
+        
         await user.addRole(role, {
             through: {userId: user.dataValues.id, roleId: role.id}
         });
@@ -101,20 +83,24 @@ class UsersService {
     }
 
     async addFavorites(userId, favoriteId) {
-        const isFav = await favoritesRepository.getFavorite(userId, favoriteId.favoriteId);
+        if(userId == favoriteId.favoriteId) {
+            throw new ConflictError('Some problem');
+        }
 
-        if(isFav.length){
+        const favoriteObj = await favoritesRepository.getFavorite(userId, favoriteId.favoriteId);
+
+        if(favoriteObj.length){
             throw new ConflictError('this favorite was added');
         }
 
-        const favorite = {
+        const favoriteValue = {
             userId: userId,
             favoriteId: favoriteId.favoriteId
         };
 
-        const fav = await favoritesRepository.addFavorite(favorite);
+        const favorite = await favoritesRepository.addFavorite(favoriteValue);
 
-        return fav;
+        return favorite;
     }
 
     async deleteFavorite(favoriteId, userId) {
