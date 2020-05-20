@@ -1,6 +1,7 @@
 const httpStatus = require('http-status-codes');
 const resMessage = require('../helpers/resMessage');
 const userService = require('../services/users');
+const roleService = require('../services/roles');
 const NotFoundError = require('../classes/errors/NotFoundError');
 
 class UserController {
@@ -173,6 +174,29 @@ class UserController {
         res
             .status(httpStatus.OK)
             .json(resMessage.OK(httpStatus.OK, 'Poem update'));
+    }
+
+    async getRole(req, res, next) {
+        const roles = await roleService.getAllRoles();
+
+        res
+            .status(httpStatus.OK)
+            .json(resMessage.OK(httpStatus.OK, 'Get roles', roles));
+    }
+
+    async getRoleById(req, res, next) {
+        const roleId = req.params.id;
+
+        const role = await roleService.getRole(roleId);
+
+        if(!role) {
+            next(new NotFoundError('sorry'));
+            return;
+        }
+
+        res
+            .status(httpStatus.OK)
+            .json(resMessage.OK(httpStatus.OK, 'Get role', role));
     }
 }
 

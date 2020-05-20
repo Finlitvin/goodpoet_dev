@@ -6,7 +6,6 @@ const userSchema = require('../schemas/user');
 const paramsSchema = require('../schemas/params');
 const isAuthorized = require('../middlewares/isAuthorized');
 const isAdmin = require('../middlewares/isAdmin');
-//const isAuthor = require('../middlewares/isAuthor');
 const router = express.Router();
 
 router.use(validation({params: paramsSchema.id}));
@@ -30,7 +29,7 @@ router.put('/poem/:id', tryCatch(userController.updatePoem));
 
 router.use(isAuthorized, isAdmin);
 
-router.get('/:id', tryCatch(userController.getUserById));
 router.get('/', tryCatch(userController.getAllUsers));
+router.get('/:id', tryCatch(userController.getUserById));
 
 module.exports = router;
