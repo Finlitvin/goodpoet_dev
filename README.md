@@ -1,4 +1,4 @@
-# Good Poet API v1.0 #
+# Good Poet API v1.0.0 #
 
 Components
 * User
