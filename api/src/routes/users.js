@@ -30,6 +30,9 @@ router.put('/poem/:id', tryCatch(userController.updatePoem));
 router.use(isAuthorized, isAdmin);
 
 router.get('/', tryCatch(userController.getAllUsers));
+console.log('[GET] /users/');
 router.get('/:id', tryCatch(userController.getUserById));
+console.log('[GET] /users/:id');
+console.log('--------------------------');
 
 module.exports = router;

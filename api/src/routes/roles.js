@@ -12,6 +12,9 @@ router.use(validation({params: paramsSchema.id}));
 router.use(isAuthorized, isAdmin);
 
 router.get('/', tryCatch(userController.getRole));
+console.log('[GET] /roles/');
 router.get('/:id', tryCatch(userController.getRoleById));
+console.log('[GET] /roles/:id');
+console.log('--------------------------');
 
 module.exports = router;

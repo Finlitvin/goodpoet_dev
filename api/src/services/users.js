@@ -38,6 +38,7 @@ class UsersService {
             userId: user.id,
             firstName: value.firstName,
             lastName: value.lastName,
+            bio: value.bio
         };
 
         await profileRepository.addProfile(profile);
